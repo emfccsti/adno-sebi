@@ -3,12 +3,11 @@ name: ADNO BUILD AND RELEASE BOTH VERSIONS
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "*"
+    branches: ["main", "master", "testenv"]
 
 jobs:
   build:
-    name: build app
+    name: build_app
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -21,8 +20,23 @@ jobs:
         run: yarn install
       - name: Generate build-light to create adno_light directory
         run: yarn build-light
-      - name: Share ADNO_LIGHT artifact inside workflow
-        uses: actions/upload-artifact@v1
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: adno-light
-          path: adno-light
+          path: "adno-light/"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
