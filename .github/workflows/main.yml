@@ -1,6 +1,7 @@
 name: ADNO BUILD AND RELEASE BOTH VERSIONS
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'
