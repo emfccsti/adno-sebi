@@ -1,7 +1,7 @@
 {
   "name": "adno-react",
   "version": "1.0.0",
-  "homepage": "https://dhbern.github.io/adno/",
+  "homepage": "https://emfccsti.github.io/adno-sebi/",
   "description": "",
   "scripts": {
     "start": "yarn install && yarn clean && parcel public/index.html",
