@@ -1,9 +1,7 @@
-name: ADNO BUILD AND RELEASE BOTH VERSIONS
+name: ADNO BUILD FULL
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main", "master", "testenv"]
 
 jobs:
   build:
@@ -20,14 +18,14 @@ jobs:
         run: yarn install
       - name: Generate build-light to create adno_light directory
         env:
-          ADNO_MODE: LIGHT
+          ADNO_MODE: FULL
           GRANTED_IMG_EXTENSIONS: jpg,png,JPG,PNG
           PUBLIC_URL: "/${{ github.event.repository.name }}"
-        run: yarn build-light
+        run: yarn build-full
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "adno-light/"
+          path: "adno-full/"
   deploy:
     needs: build
     runs-on: ubuntu-latest
